@@ -1,42 +1,28 @@
 const myGroups = []; // массив для хранения подписок на группы
 
-const groupList = 
-[
-  { groupName: 'Habrahabr' },
-  { groupName: 'Web2018' },
+const groupList = [
+  { groupName: "Habrahabr", groupId: 0},
+  { groupName: "Web2018", groupId: 1},
+  { groupName: "Web2018", groupId: 2},
+  { groupName: "godnotent", groupId: 3}
 ];
 
-function subscribeGroup(group) 
-{
-  var flag = false;
-  for(let i = 0; i < groupList.length; i++)
-  {
-  	if(groupList[i].groupName == group)
-    {
-  		myGroups.push(group);
-      flag = true;
+function subscribeGroup(group) {
+  for (let key of groupList.values()) {
+    if (key.groupId == group && myGroups.indexOf(group) == -1 ) {
+      myGroups.push(group);
+      console.log("Вы подписались на " + key.groupName);
+      return;
     }
   }
-  if(flag)
-    console.log('Вы успешно подписались на группу!')
-  else
-    console.log('Такой группы не в списке');
+  console.log("Ошибка при подписке на группу");
 }
 
-function unsubscribeGroup(group) 
-{
-  if(myGroups.length == 0)
-  	console.log('Вы не подписаны ни на одну группу!');
+function unsubscribeGroup(group) {
+  if (myGroups.indexOf(group) != -1) {
+    myGroups.splice(myGroups.indexOf(group), 1);
+    console.log("Вы только что отписались от " + group);
+  }
   else
-  	for(let i = 0; i < myGroups.length; i++)
-  	{
-  		console.log(myGroups[i]);
-  		if(myGroups[i] == group)
-  		{
-  			myGroups.splice(i, 1);
-				console.log('Вы отписались от группы')
-  		}
-			else
-				console.log('Вы не подписаны на эту группу')
-  	}
+    console.log("Ошибка при отписке от группы");
 }
